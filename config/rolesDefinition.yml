@@ -1,0 +1,32 @@
+rolesDefinition:
+  rolesDictionary:
+    admin:
+      description: "Администратор"
+    moderator:
+      description: "Модератор"
+    manager:
+      description: "Менеджер"
+    user:
+      description: "Пользователь"
+
+  privelegesDictionary:
+    createUser:
+      description: "Создание пользователя"
+    deleteUser:
+      description: "Удаление пользователя"
+    updateUser:
+      description: "Обновление пользователя"
+    blockUser:
+      description: "Блокировка пользователя"
+    getUser:
+      description: "Получение любого пользователя"
+    getUserList:
+      description: "Получение списка всех пользователей"
+    getListOfMyGroup:
+      description: "Получение списка всех пользователей с такой же ролью или ниже"
+    createNode:
+      description: "Создание узла"
+    updateNode:
+      description: "Обновление узла"
+    deleteNode:
+      description: "Удаление узла"
