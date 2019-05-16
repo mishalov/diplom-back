@@ -20,9 +20,11 @@ class Server
     public function __construct($serverToCreate)
     {
         $this->setIp($serverToCreate->ip);
+        $this->setPort($serverToCreate->port);
         $this->setCreated(new \DateTime());
         $this->setDescription($serverToCreate->description);
         $this->setName($serverToCreate->name);
+        $this->setLeader($serverToCreate->leader);
     }
     /**
      * @ORM\Id()
@@ -53,72 +55,100 @@ class Server
     public $description;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @OneToOne(targetEntity="ServerKeys")
+     * @ORM\Column(type="string", length=255, options={"default":"2377"}))
      */
-    private $keyId;
+    public $port = "";
 
-    public function getId() : ? int
+    /**
+     * @ORM\Column(type="boolean", options={"default":0})
+     */
+    public $leader;
+
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName() : ? string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name) : self
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getIp() : ? string
+    public function getIp(): ?string
     {
         return $this->ip;
     }
 
-    public function setIp(string $ip) : self
+    public function setIp(string $ip): self
     {
         $this->ip = $ip;
 
         return $this;
     }
 
-    public function getCreated() : ? \DateTimeInterface
+    public function getCreated(): ?\DateTimeInterface
     {
         return $this->created;
     }
 
-    public function setCreated(\DateTimeInterface $created) : self
+    public function setCreated(\DateTimeInterface $created): self
     {
         $this->created = $created;
 
         return $this;
     }
 
-    public function getDescription() : ? string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription(? string $description) : self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
         return $this;
     }
 
-    public function getKeyId() : ? int
+    public function getKeyId(): ?int
     {
         return $this->keyId;
     }
 
-    public function setKeyId(? int $keyId) : self
+    public function setKeyId(?int $keyId): self
     {
         $this->keyId = $keyId;
+
+        return $this;
+    }
+
+    public function getPort(): ?string
+    {
+        return $this->port;
+    }
+
+    public function setPort(string $port): self
+    {
+        $this->port = $port;
+
+        return $this;
+    }
+
+    public function getLeader(): ?bool
+    {
+        return $this->leader;
+    }
+
+    public function setLeader(bool $leader): self
+    {
+        $this->leader = $leader;
 
         return $this;
     }

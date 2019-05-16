@@ -24,22 +24,22 @@ class User implements UserInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true,options={"default"= ""})
      */
-    private $username = "";
+    public $username = "";
 
     /**
      * @ORM\Column(type="string", length=255,options={"default"= ""})
      */
-    private $name = "";
+    public $name = "";
 
     /**
      * @ORM\Column(type="string", length=255,options={"default"= ""})
      */
-    private $surname = "";
+    public $surname = "";
 
     /**
      * @ORM\Column(type="string", length=255,options={"default"= ""})
@@ -49,72 +49,72 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isActive;
+    public $isActive;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true,options={"default"= ""})
      */
-    private $email = "";
+    public $email = "";
 
-    public function getId() : ? int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUsername() : ? string
+    public function getUsername(): ?string
     {
         return $this->username;
     }
 
-    public function setUsername(string $username) : self
+    public function setUsername(string $username): self
     {
         $this->username = $username;
 
         return $this;
     }
 
-    public function getName() : ? string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name) : self
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getSurname() : ? string
+    public function getSurname(): ?string
     {
         return $this->surname;
     }
 
-    public function setSurname(string $surname) : self
+    public function setSurname(string $surname): self
     {
         $this->surname = $surname;
 
         return $this;
     }
 
-    public function getPassword() : ? string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function setPassword(string $password) : self
+    public function setPassword(string $password): self
     {
         $this->password = $password;
 
         return $this;
     }
 
-    public function getIsActive() : ? bool
+    public function getIsActive(): ?bool
     {
         return $this->isActive;
     }
 
-    public function setIsActive(bool $isActive) : self
+    public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
 
@@ -126,20 +126,19 @@ class User implements UserInterface
         return array('ROLE_USER');
     }
     public function eraseCredentials()
-    {
-    }
+    { }
 
     public function getSalt()
     {
         return null;
     }
 
-    public function getEmail() : ? string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email) : self
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 

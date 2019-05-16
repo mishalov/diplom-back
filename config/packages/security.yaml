@@ -28,9 +28,16 @@ security:
       stateless: true
       anonymous: true
 
+    testRoutes:
+      pattern: /test/orchestrator
+      stateless: true
+      anonymous: true
+
     api:
       pattern: ^/api
       stateless: true
+      anonymous: false
+      provider: app_user_provider
       guard:
         authenticators:
           - lexik_jwt_authentication.jwt_token_authenticator

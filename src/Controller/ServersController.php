@@ -30,7 +30,7 @@ class ServersController extends AbstractController
     /**
      * @Route("/api/server", methods={"GET","HEAD"})
      */
-    public function getServersList(Request $request)
+    public function getServersList()
     {
         $repository = $this->getDoctrine()->getRepository(Server::class);
         $servers = $repository->findAll();
@@ -58,35 +58,4 @@ class ServersController extends AbstractController
         $server = $this->getDoctrine()->getRepository(Server::class)->find($id);
         return new JsonResponse($server);
     }
-    /**
-     * @Route("/api/server/{id}/key", methods={"post","HEAD"}, requirements={"id"="\d+"})
-     */
-    public function changeAuth(Request $request, $id)
-    {
-        $newKey = new ServerKeys(json_decode($request->getContent())->hash, $id);
-        $doctrine = $this->getDoctrine();
-        $manager = $doctrine->getManager();
-        $server = $doctrine->getRepository(Server::class)->find($id);
-        $oldKeyId = $server->getKeyId();
-        if ($oldKeyId) {
-            $oldKeyObject = $doctrine->getRepository(ServerKeys::class)->find($oldKeyId);
-            $manager->remove($oldKeyObject);
-        }
-        $manager->persist($newKey);
-        $manager->flush();
-        $server->setKeyId($newKey->getId());
-        $manager->flush();
-        return new Response(sprintf("Ключ изменен успешно"));
-    }
-    /**
-     * @Route("/api/server/{id}/key", methods={"GET","HEAD"}, requirements={"id"="\d+"})
-     */
-    public function getServerKey(Request $request, $id)
-    {
-
-        $serverKeyInfo = $this->getDoctrine()->getRepository(ServerKeys::class)->getKeyObject($id);
-        return new JsonResponse($serverKeyInfo);
-    }
-
 }
-
