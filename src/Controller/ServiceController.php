@@ -127,4 +127,30 @@ class ServiceController extends Controller
             return new Response(sprintf("Ошибка при изменении сервиса!"));
         }
     }
+
+    /**
+     * @Route("/api/services/reinit", methods={"GET"})
+     */
+    public function reinitServices()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $services = $em->getRepository(Service::class)->findAll();
+        $servicesToSend = array_map(function ($service) {
+            $dependencies =  $service->getDependencies();
+            return [
+                "FileBase64" => $service->getFileBase64(),
+                "Dependencies" => $dependencies->toArray(),
+                "CountOfReplicas" => $service->getReplicas(),
+                "Type" => $service->getType(),
+                "UserId" => $service->getOwner()->getId(),
+                "Id" => $service->getId(),
+                "Port" => $service->getPort(),
+                "DockerServiceId" => $service->getServiceId()
+            ];
+        }, $services);
+        $client = new Client(['base_uri' => 'http://192.168.56.102:5000/api/']);
+        $response = $client->get("service/reinit", ['json' => $servicesToSend])->getBody()->getContents();
+        var_dump(json_encode($response));
+        return new JsonResponse($response);
+    }
 }
